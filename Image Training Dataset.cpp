@@ -3,30 +3,31 @@
 
 int main()
 {
-    // Variables
+    // Local Variables Used For The Image Training Dataset
     bool debugConsole = true;
     std::string datasetPath = "\\Image Dataset 0000";
-    std::string datasetSession = "Session 0001";
+    std::string trainingSession = "Session 0001";
     std::string fileStemArchive = "Archive 0000";
-    std::vector<unsigned> networkTopologyHiddenLayers;
-
+    double percentTrainingData = 0.75;
+    double percentValidationData = 0.20;
+    double percentTestData = 0.05;
+    std::vector<unsigned> networkTopologyHiddenLayers = {8, 4, 2};
+    
     // Load the default training session
     ImageTrainingDataset dataset(datasetPath);
-    //ImageTrainingDataset dataset(debugConsole, datasetPath); 
-
-    //// Create a new training session
-    //dataset.createNewTrainingSession(datasetSession);
+    //ImageTrainingDataset dataset(debugConsole, datasetPath);
 
     //// Load an existing training session
-    //ImageTrainingDataset dataset(datasetPath, datasetSession);
-    //ImageTrainingDataset dataset(debugConsole, datasetPath, datasetSession);
+    //ImageTrainingDataset dataset(datasetPath, trainingSession);
+    //ImageTrainingDataset dataset(debugConsole, datasetPath, trainingSession); 
+
+    //// Create a new training session
+    //dataset.createNewTrainingSession(trainingSession);
 
     // Prepare Training Session
-    dataset.prepareTrainingSession();
+    dataset.prepareTrainingSession(percentTrainingData, percentValidationData, percentTestData);
 
     // Create New Neural Network
-    networkTopologyHiddenLayers.clear();
-    networkTopologyHiddenLayers.push_back(4);
     dataset.createNewNeuralNetwork(networkTopologyHiddenLayers);
 
     // Archive Neural Network
