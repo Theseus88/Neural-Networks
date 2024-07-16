@@ -15,7 +15,6 @@ int main()
     //ImageTrainingDataset dataset(debugConsole, datasetPath); 
 
     //// Create a new training session
-    //datasetSession = "Session 0001";
     //dataset.createNewTrainingSession(datasetSession);
 
     //// Load an existing training session
