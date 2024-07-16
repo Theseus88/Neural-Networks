@@ -415,10 +415,6 @@ void NeuralNetwork::archiveNeuralNetwork(const std::vector<unsigned>& topology, 
 		if (debugConsole) { std::cout << "Error NN.000: An empty path was provided for the neural network archive.\n"; }
 		abort();
 	}
-	if (std::filesystem::exists(filePathArchive)) {
-		if (debugConsole) { std::cout << "Error NN.000: \n"; }
-		abort();
-	}
 	fileArchive.open(filePathArchive, std::ios::out);
 	if (fileArchive.fail()) {
 		if (debugConsole) { std::cout << "Error NN.000: Failed to open the neural network archive.\n"; }
@@ -499,7 +495,8 @@ public:
 	void verifyTrainingSessionImageSizesMatch(void);
 	void updateFileTrainingSessionDatasetConfiguration(void);
 	void createTrainingSessionTargetOutputDataFiles(void);
-	void prepareTrainingSession(void);
+	void createTrainingSessionTrainingValidationAndTestFiles(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData);
+	void prepareTrainingSession(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData);
 
 	// Public Functions - Neural Network
 	void createNewNeuralNetwork(const std::vector<unsigned>& hiddenLayersTopology);
@@ -1101,7 +1098,12 @@ void ImageTrainingDataset::createTrainingSessionTargetOutputDataFiles(void)
 	}
 	if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session target output data text files.\n"; }
 }
-void ImageTrainingDataset::prepareTrainingSession(void)
+// Working On Here...
+void ImageTrainingDataset::createTrainingSessionTrainingValidationAndTestFiles(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData)
+{
+
+}
+void ImageTrainingDataset::prepareTrainingSession(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: Preparing the image training dataset for training.\n"; }
 	updateDirectoryTrainingSessionImages();
@@ -1110,6 +1112,7 @@ void ImageTrainingDataset::prepareTrainingSession(void)
 	verifyTrainingSessionImageSizesMatch();
 	updateFileTrainingSessionDatasetConfiguration();
 	createTrainingSessionTargetOutputDataFiles();
+	createTrainingSessionTrainingValidationAndTestFiles(percentTrainingData, percentValidationData, percentTestData);
 	if (debugConsole) { std::cout << "Update ITD.000: Finished preparing the image training dataset for training.\n"; }
 }
 void ImageTrainingDataset::createNewNeuralNetwork(const std::vector<unsigned>& hiddenLayersTopology)
