@@ -18,7 +18,7 @@ void exampleImageTrainingDataset(void)
 {
     // Local Variables Used For The Image Training Dataset
     bool debugConsole = true;
-    std::string datasetPath = "C:\\Users\\Elkla\\OneDrive\\Desktop\\Training Data\\Image Dataset 0000";
+    std::string datasetPath = "\\Image Dataset 0000";
     std::string trainingSession = "Session 0000";
     std::string fileStemArchive = "Archive 0000";
     double neuralNetworkEta = 0.15;
