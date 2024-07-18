@@ -626,7 +626,6 @@ void ImageTrainingDataset::initializeTrainingSessionNeuralNetwork(void)
 				abort();
 			}
 		}
-		std::cout << line << "\n";
 		line.erase(0, 37);
 		double value = std::stod(line);
 		value == 0 ? trainingSessionNeuralNetworkEta = 0.15 : trainingSessionNeuralNetworkEta = value;
