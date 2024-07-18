@@ -51,6 +51,11 @@ void exampleImageTrainingDataset(void)
     //// Create A New Neural Network
     //dataset.createNewNeuralNetwork();
 
+    //// Working On These Three Functions Currently
+    //dataset.runTrainingImages();
+    //dataset.runValidationImages();
+    //dataset.runTestImages();
+
     //// Archive The Neural Network
     //dataset.archiveNeuralNetwork(fileStemArchive);
 }
