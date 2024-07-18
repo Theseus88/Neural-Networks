@@ -339,7 +339,7 @@ void NeuralNetwork::loadExistingNeuralNetwork(std::vector<unsigned>& topology, c
 		index = line.find(",");
 		valueString = line.substr(0, index);
 		line.erase(0, index + 1);
-		valueUnsigned = std::stoi(valueString);
+		valueUnsigned = std::stoi(valueString) - 1;
 		topology.push_back(valueUnsigned);
 	}
 
@@ -424,7 +424,7 @@ void NeuralNetwork::archiveNeuralNetwork(const std::vector<unsigned>& topology, 
 	// Add Comment Later
 	fileArchive << "Topology: ";
 	for (unsigned topologyIndex = 0; topologyIndex < topology.size(); topologyIndex++) {
-		fileArchive << topology[topologyIndex] << (topologyIndex != topology.size() - 1 ? "," : "\n");
+		fileArchive << topology[topologyIndex] + 1 << (topologyIndex != topology.size() - 1 ? "," : "\n");
 	}
 
 	// Add Comment Later
@@ -478,9 +478,9 @@ class ImageTrainingDataset
 
 	// Private Variables - Neural Network
 	NeuralNetwork trainingSessionNeuralNetwork;
-	std::vector<unsigned> trainingSessionNeuralNetworkTopology;
 	double trainingSessionNeuralNetworkEta;
 	double trainingSessionNeuralNetworkAlpha;
+	std::vector<unsigned> trainingSessionNeuralNetworkTopology;
 
 public:
 	// Constructors
@@ -508,6 +508,11 @@ public:
 	void createNewNeuralNetwork(void);
 	void loadExistingNeuralNetwork(const std::string& fileStem);
 	void archiveNeuralNetwork(const std::string& fileStem);
+
+	// Working On These Three Functions Currently
+	void runTrainingImages(void);
+	void runValidationImages(void);
+	void runTestImages(void);
 
 	// Getters
 	bool getDebugConsole(void) const { return debugConsole; };
@@ -1321,4 +1326,18 @@ void ImageTrainingDataset::archiveNeuralNetwork(const std::string& fileStem)
 	std::string filePathArchive = directoryTrainingSessionNeuralNetworkArchives + fileStem + ".txt";
 	trainingSessionNeuralNetwork.archiveNeuralNetwork(trainingSessionNeuralNetworkTopology, filePathArchive);
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
+}
+
+// Working On These Three Functions Currently
+void ImageTrainingDataset::runTrainingImages(void)
+{
+
+}
+void ImageTrainingDataset::runValidationImages(void)
+{
+
+}
+void ImageTrainingDataset::runTestImages(void)
+{
+
 }
