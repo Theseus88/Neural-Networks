@@ -18,7 +18,7 @@ void exampleImageTrainingDataset(void)
 {
     // Local Variables Used For The Image Training Dataset
     bool debugConsole = true;
-    std::string datasetPath = "\\Image Dataset 0000";
+    std::string datasetPath = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\Image Dataset 0000";
     std::string trainingSession = "Session 0000";
     std::string fileStemArchive = "Archive 0000";
     double neuralNetworkEta = 0.15;
@@ -39,23 +39,22 @@ void exampleImageTrainingDataset(void)
     //// Create A New Training Session
     //dataset.createNewTrainingSession(trainingSession);
 
-    //// Update The Training Session
-    //dataset.updateTrainingSession(percentTrainingData, percentValidationData, percentTestData);
-
-    //// Prepare The Training Session
-    //dataset.prepareTrainingSession(neuralNetworkEta, neuralNetworkAlpha, neuralNetworkHiddenLayersTopology);
+    // Update The Training Session
+    dataset.updateTrainingSession(percentTrainingData, percentValidationData, percentTestData);
 
     //// Load An Existing Neural Network
-    //dataset.loadExistingNeuralNetwork(fileStemArchive);
+    //dataset.existingNeuralNetwork(fileStemArchive);
 
-    //// Create A New Neural Network
-    //dataset.createNewNeuralNetwork();
+    // Create A New Neural Network
+    dataset.newNeuralNetwork(neuralNetworkEta, neuralNetworkAlpha, neuralNetworkHiddenLayersTopology);
 
-    //// Working On These Three Functions Currently
-    //dataset.runTrainingImages();
+    // For Each Input Image In Training Session Training Images List, Feed Forward And Back Propagate
+    dataset.runTrainingImages();
+
+    //// Working On These Two Functions Currently
     //dataset.runValidationImages();
     //dataset.runTestImages();
 
-    //// Archive The Neural Network
-    //dataset.archiveNeuralNetwork(fileStemArchive);
+    // Archive The Neural Network
+    dataset.archiveNeuralNetwork(fileStemArchive);
 }
