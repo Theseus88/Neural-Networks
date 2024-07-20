@@ -21,8 +21,8 @@ void exampleImageTrainingDataset(void)
     std::string datasetPath = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\Image Dataset 0000";
     std::string trainingSession = "Session 0000";
     std::string fileStemArchive = "Archive 0000";
-    double neuralNetworkEta = 0.15; // Learning Rate ( 0 < value >= 1 )
-    double neuralNetworkAlpha = 0.5; // Momentum ( 0 < value >= 1 )
+    double neuralNetworkEta = 0.15; // Learning Rate ( 0 < value <= 1 )
+    double neuralNetworkAlpha = 0.5; // Momentum ( 0 < value <= 1 )
     std::vector<unsigned> neuralNetworkHiddenLayersTopology = { 8, 4, 2 };
     double percentTrainingData = 0.75;
     double percentValidationData = 0.20;
