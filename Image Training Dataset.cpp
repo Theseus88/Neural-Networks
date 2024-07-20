@@ -21,8 +21,8 @@ void exampleImageTrainingDataset(void)
     std::string datasetPath = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\Image Dataset 0000";
     std::string trainingSession = "Session 0000";
     std::string fileStemArchive = "Archive 0000";
-    double neuralNetworkEta = 0.15;
-    double neuralNetworkAlpha = 0.5;
+    double neuralNetworkEta = 0.15; // Learning Rate ( 0 < value >= 1 )
+    double neuralNetworkAlpha = 0.5; // Momentum ( 0 < value >= 1 )
     std::vector<unsigned> neuralNetworkHiddenLayersTopology = { 8, 4, 2 };
     double percentTrainingData = 0.75;
     double percentValidationData = 0.20;
@@ -35,11 +35,14 @@ void exampleImageTrainingDataset(void)
     //// Load An Existing Training Session
     //ImageTrainingDataset dataset(datasetPath, trainingSession);
     //ImageTrainingDataset dataset(debugConsole, datasetPath, trainingSession);
+    
+    //// Switch To An Existing Training Session 
+    //dataset.existingTrainingSession(trainingSession);
 
     //// Create A New Training Session
-    //dataset.createNewTrainingSession(trainingSession);
+    //dataset.newTrainingSession(trainingSession);
 
-    // Update The Training Session
+    // Update The Training Session (Make sure there are at least three images in the main images directory of the dataset before calling)
     dataset.updateTrainingSession(percentTrainingData, percentValidationData, percentTestData);
 
     //// Load An Existing Neural Network
@@ -51,9 +54,9 @@ void exampleImageTrainingDataset(void)
     // For Each Input Image In Training Session Training Images List, Feed Forward And Back Propagate
     dataset.runTrainingImages();
 
-    //// Working On These Two Functions Currently
-    //dataset.runValidationImages();
-    //dataset.runTestImages();
+    //// These Two Functions Are Still In Development...
+    //dataset.runValidationImages(); // Currently An Empty Function... Will Come Back To Later...
+    //dataset.runTestImages(); // Currently An Empty Function... Will Come Back To Later...
 
     // Archive The Neural Network
     dataset.archiveNeuralNetwork(fileStemArchive);
