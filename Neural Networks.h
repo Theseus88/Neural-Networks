@@ -456,11 +456,14 @@ void NeuralNetwork::archiveNeuralNetwork(const std::vector<unsigned>& topology, 
 // Image Training Dataset Class
 class ImageTrainingDataset
 {
-	// Private Variables - Image Training Dataset
+	// Private Variables - Image Training Dataset (Encapsulation...)
 	bool debugConsole;
+
 	std::string directoryImageTrainingDataset;
+
 	std::string directoryImages;
 	std::string directoryImageAnnotations;
+
 	std::string directoryTrainingSessions;
 	std::string directoryCurrentTrainingSession;
 	std::string directoryTrainingSessionImages;
@@ -468,58 +471,64 @@ class ImageTrainingDataset
 	std::string directoryTrainingSessionInputDataFiles;
 	std::string directoryTrainingSessionTargetOutputDataFiles;
 	std::string directoryTrainingSessionNeuralNetworkArchives;
-	std::string filePathTrainingSessionAnnotationList;
-	std::string filePathTrainingSessionTrainingImagesList;
-	std::string filePathTrainingSessionValidationImagesList;
-	std::string filePathTrainingSessionTestImagesList;
+
+	std::string filePathTrainingSessionListImageAnnotations;
+	std::string filePathTrainingSessionListTrainingImages;
+	std::string filePathTrainingSessionListValidationImages;
+	std::string filePathTrainingSessionListTestImages;
+
 	std::string filePathTrainingSessionDatasetConfiguration;
-	std::vector<std::string> trainingSessionAnnotationList;
+
+	std::vector<std::string> trainingSessionListImageAnnotations;
+	std::vector<std::string> trainingSessionListTrainingImages;
+	std::vector<std::string> trainingSessionListValidationImages;
+	std::vector<std::string> trainingSessionListTestImages;
+
 	unsigned trainingSessionImageWidth;
 	unsigned trainingSessionImageHeight;
 
-	// Private Variables - Neural Network
+	// Private Variables - Neural Network (Encapsulation...)
 	NeuralNetwork trainingSessionNeuralNetwork;
+
 	double trainingSessionNeuralNetworkEta;
 	double trainingSessionNeuralNetworkAlpha;
 	std::vector<unsigned> trainingSessionNeuralNetworkTopology;
 
 public:
-	// Constructors
+	// Public Constructors
 	ImageTrainingDataset(const std::string& path) { initializeImageTrainingDataset(true, path); };
-	ImageTrainingDataset(const std::string& path, const std::string& session) { initializeImageTrainingDataset(true, path, session); }; // This constructor is not working correctly...
+	ImageTrainingDataset(const std::string& path, const std::string& session) { initializeImageTrainingDataset(true, path, session); };
 	ImageTrainingDataset(const bool& console, const std::string& path) { initializeImageTrainingDataset(console, path); };
 	ImageTrainingDataset(const bool& console, const std::string& path, const std::string& session) { initializeImageTrainingDataset(console, path, session); };
 
+	// Public Setters - Image Training Dataset
+	void setDebugConsole(const bool& console);
+
+	void setDirectoryImages(const std::string& path);
+	void setDirectoryImageAnnotations(const std::string& path);
+
 	// Public Functions - Image Training Dataset
-	void createNewTrainingSession(const std::string& path);
-	void selectExistingTrainingSession(const std::string& path);
-
-	void updateDirectoryTrainingSessionImages(void);
-	void verifyTrainingSessionImageSizesMatch(void);
-	void updateDirectoryTrainingSessionImageAnnotations(void);
-	void updateFileTrainingSessionAnnotationList(void);
-	void updateTrainingSessionInputDataFiles(void);
-	void updateTrainingSessionTargetOutputDataFiles(void);
-	void updateTrainingSessionTrainingValidationAndTestFiles(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData);
-	void updateTrainingSession(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData);
-
-	void updateFileTrainingSessionDatasetConfiguration(void);	
+	void newTrainingSession(const std::string& path);
+	void existingTrainingSession(const std::string& path);
+	void updateTrainingSession(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData);		
 
 	// Public Functions - Neural Network
 	void newNeuralNetwork(const double& eta, const double& alpha, const std::vector<unsigned>& hiddenLayersTopology);
 	void existingNeuralNetwork(const std::string& fileStem);
 	void archiveNeuralNetwork(const std::string& fileStem);
 
-	// Working On These Three Functions Currently
 	void runTrainingImages(void);
-	void runValidationImages(void);
-	void runTestImages(void);
+	void runValidationImages(void); // Currently An Empty Function... Will Come Back To Later...
+	void runTestImages(void); // Currently An Empty Function... Will Come Back To Later...
 
-	// Getters
+	// Public Getters - Image Training Dataset
 	bool getDebugConsole(void) const { return debugConsole; };
+
 	std::string getDirectoryImageTrainingDataset(void) const { return directoryImageTrainingDataset; };
+
 	std::string getDirectoryImages(void) const { return directoryImages; };
 	std::string getDirectoryImageAnnotations(void) const { return directoryImageAnnotations; };
+
 	std::string getDirectoryTrainingSessions(void) const { return directoryTrainingSessions; };
 	std::string getDirectoryCurrentTrainingSession(void) const { return directoryCurrentTrainingSession; };
 	std::string getDirectoryTrainingSessionImages(void) const { return directoryTrainingSessionImages; };
@@ -527,48 +536,75 @@ public:
 	std::string getDirectoryTrainingSessionInputDataFiles(void) const { return directoryTrainingSessionInputDataFiles; };
 	std::string getDirectoryTrainingSessionTargetOutputDataFiles(void) const { return directoryTrainingSessionTargetOutputDataFiles; };
 	std::string getDirectoryTrainingSessionNeuralNetworkArchives(void) const { return directoryTrainingSessionNeuralNetworkArchives; };
-	std::string getFilePathTrainingSessionAnnotationList(void) const { return filePathTrainingSessionAnnotationList; };
-	std::string getFilePathTrainingSessionTrainingImagesList(void) const { return filePathTrainingSessionTrainingImagesList; };
-	std::string getFilePathTrainingSessionValidationImagesList(void) const { return filePathTrainingSessionValidationImagesList; };
-	std::string getFilePathTrainingSessionTestImagesList(void) const { return filePathTrainingSessionTestImagesList; };
+
+	std::string getFilePathTrainingSessionListImageAnnotations(void) const { return filePathTrainingSessionListImageAnnotations; };
+	std::string getFilePathTrainingSessionListTrainingImages(void) const { return filePathTrainingSessionListTrainingImages; };
+	std::string getFilePathTrainingSessionListValidationImages(void) const { return filePathTrainingSessionListValidationImages; };
+	std::string getFilePathTrainingSessionListTestImages(void) const { return filePathTrainingSessionListTestImages; };
+
 	std::string getFilePathTrainingSessionDatasetConfiguration(void) const { return filePathTrainingSessionDatasetConfiguration; };
-	std::vector<std::string> getTrainingSessionAnnotationList(void) const { return trainingSessionAnnotationList; };
+
+	std::vector<std::string> getTrainingSessionListImageAnnotations(void) const { return trainingSessionListImageAnnotations; };
+	std::vector<std::string> getTrainingSessionListTrainingImages(void) const { return trainingSessionListTrainingImages; };
+	std::vector<std::string> getTrainingSessionListValidationImages(void) const { return trainingSessionListValidationImages; };
+	std::vector<std::string> getTrainingSessionListTestImages(void) const { return trainingSessionListTestImages; };
+
 	unsigned getTrainingSessionImageWidth(void) const { return trainingSessionImageWidth; };
 	unsigned getTrainingSessionImageHeight(void) const { return trainingSessionImageHeight; };
-	std::vector<unsigned> getTrainingSessionNeuralNetworkTopology(void) const { return trainingSessionNeuralNetworkTopology; };
+
+	// Public Getters - Neural Network
 	double getTrainingSessionNeuralNetworkEta(void) const { return trainingSessionNeuralNetworkEta; };
 	double getTrainingSessionNeuralNetworkAlpha(void) const { return trainingSessionNeuralNetworkAlpha; };
+	std::vector<unsigned> getTrainingSessionNeuralNetworkTopology(void) const { return trainingSessionNeuralNetworkTopology; };	
 
-	// Setters
-	void setDebugConsole(const bool& console);
+private:
+	// Private Functions - Image Training Dataset (Could Be Public... Your Choice... Your Risk...)
+	void initializeImageTrainingDataset(const bool& console, const std::string& path);
+	void initializeImageTrainingDataset(const bool& console, const std::string& path, const std::string& session);
+
+	void initializeTrainingSessionNeuralNetwork(void);
+
+	void updateDirectoryTrainingSessionImages(void);
+	void verifyTrainingSessionImageSizesMatch(void);
+	void updateDirectoryTrainingSessionImageAnnotations(void);
+	void verifyTrainingSessionImagesHaveImageAnnotations(void);
+	void updateFileTrainingSessionListImageAnnotations(void);
+	void updateTrainingSessionInputDataFiles(void);
+	void updateTrainingSessionTargetOutputDataFiles(void);
+	void updateTrainingSessionTrainingValidationAndTestFiles(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData);
+
+	void updateFileTrainingSessionDatasetConfiguration(void);
+
+	// Private Setters - Image Training Dataset (Could Be Public... Your Choice... Your Risk...)
 	void setDirectoryImageTrainingDataset(const std::string& path);
-	void setDirectoryImages(const std::string& path);
-	void setDirectoryImageAnnotations(const std::string& path);
 	void setDirectoryTrainingSessions(const std::string& path);
+
 	void setDirectoryCurrentTrainingSession(const std::string& path);
 	void setDirectoryTrainingSessionImages(const std::string& path);
 	void setDirectoryTrainingSessionImageAnnotations(const std::string& path);
 	void setDirectoryTrainingSessionInputDataFiles(const std::string& path);
 	void setDirectoryTrainingSessionTargetOutputDataFiles(const std::string& path);
 	void setDirectoryTrainingSessionNeuralNetworkArchives(const std::string& path);
-	void setFilePathTrainingSessionAnnotationList(const std::string& path);
-	void setFilePathTrainingSessionTrainingImagesList(const std::string& path);
-	void setFilePathTrainingSessionValidationImagesList(const std::string& path);
-	void setFilePathTrainingSessionTestImagesList(const std::string& path);
+
+	void setFilePathTrainingSessionListImageAnnotations(const std::string& path);
+	void setFilePathTrainingSessionListTrainingImages(const std::string& path);
+	void setFilePathTrainingSessionListValidationImages(const std::string& path);
+	void setFilePathTrainingSessionListTestImages(const std::string& path);
+
 	void setFilePathTrainingSessionDatasetConfiguration(const std::string& path);
-	void setTrainingSessionAnnotationList(void);
+
+	void setTrainingSessionListImageAnnotations(void);
+	void setTrainingSessionListTrainingImages(void);
+	void setTrainingSessionListValidationImages(void);
+	void setTrainingSessionListTestImages(void);
+
 	void setTrainingSessionImageWidth(const unsigned& width);
 	void setTrainingSessionImageHeight(const unsigned& height);
-	void setTrainingSessionNeuralNetworkTopology(const std::vector<unsigned>& hiddenLayersTopology);
+
+	// Private Setters - Neural Network (Could Be Public... Your Choice... Your Risk...)
 	void setTrainingSessionNeuralNetworkEta(const double& eta);
 	void setTrainingSessionNeuralNetworkAlpha(const double& alpha);
-
-private:
-	// Private Functions
-	void initializeImageTrainingDataset(const bool& console, const std::string& path);
-	void initializeImageTrainingDataset(const bool& console, const std::string& path, const std::string& session);
-	void initializeTrainingSessionNeuralNetwork(void);
-
+	void setTrainingSessionNeuralNetworkTopology(const std::vector<unsigned>& hiddenLayersTopology);
 };
 
 void ImageTrainingDataset::initializeImageTrainingDataset(const bool& console, const std::string& path)
@@ -586,12 +622,15 @@ void ImageTrainingDataset::initializeImageTrainingDataset(const bool& console, c
 	setDirectoryTrainingSessionInputDataFiles(directoryCurrentTrainingSession + "Input Data Files\\");
 	setDirectoryTrainingSessionTargetOutputDataFiles(directoryCurrentTrainingSession + "Target Output Data Files\\");
 	setDirectoryTrainingSessionNeuralNetworkArchives(directoryCurrentTrainingSession + "Neural Network Archives\\");
-	setFilePathTrainingSessionAnnotationList(directoryCurrentTrainingSession);
-	setFilePathTrainingSessionTrainingImagesList(directoryCurrentTrainingSession);
-	setFilePathTrainingSessionValidationImagesList(directoryCurrentTrainingSession);
-	setFilePathTrainingSessionTestImagesList(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListImageAnnotations(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListTrainingImages(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListValidationImages(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListTestImages(directoryCurrentTrainingSession);
 	setFilePathTrainingSessionDatasetConfiguration(directoryCurrentTrainingSession);	
-	setTrainingSessionAnnotationList();
+	setTrainingSessionListImageAnnotations();
+	setTrainingSessionListTrainingImages();
+	setTrainingSessionListValidationImages();
+	setTrainingSessionListTestImages();
 	verifyTrainingSessionImageSizesMatch();
 	initializeTrainingSessionNeuralNetwork();
 	updateFileTrainingSessionDatasetConfiguration();
@@ -606,28 +645,31 @@ void ImageTrainingDataset::initializeImageTrainingDataset(const bool& console, c
 	setDirectoryImages(directoryImageTrainingDataset + "Images\\");
 	setDirectoryImageAnnotations(directoryImages + "Image Annotations\\");
 	setDirectoryTrainingSessions(directoryImageTrainingDataset + "Training Sessions\\");
-	selectExistingTrainingSession(session);
+	existingTrainingSession(session);
 	initializeTrainingSessionNeuralNetwork();
 	updateFileTrainingSessionDatasetConfiguration();
 	if (debugConsole) { std::cout << "Update ITD.000: Finished initializing the image training dataset.\n"; }
 }
+
 void ImageTrainingDataset::initializeTrainingSessionNeuralNetwork(void)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
-	trainingSessionNeuralNetworkTopology.clear();
 	std::fstream fileDatasetConfiguration;
 	fileDatasetConfiguration.open(filePathTrainingSessionDatasetConfiguration, std::ios::in);
-	if (fileDatasetConfiguration.fail()) {
+	if (!fileDatasetConfiguration.is_open()) {
 		if (debugConsole) { std::cout << "Error ITD.000: \n"; };
 		abort();
 	}
 	std::string line;
 	std::getline(fileDatasetConfiguration, line);
 	if (fileDatasetConfiguration.fail() || line.empty()) {
+		// Set Default Values
 		trainingSessionNeuralNetworkEta = 0.15;
 		trainingSessionNeuralNetworkAlpha = 0.5;
+		trainingSessionNeuralNetworkTopology.clear();
 	}
 	else {
+		// Get Neural Network Eta From File
 		for (unsigned index = 0; index < 48; index++) {
 			std::getline(fileDatasetConfiguration, line);
 			if (fileDatasetConfiguration.fail()) {
@@ -638,6 +680,7 @@ void ImageTrainingDataset::initializeTrainingSessionNeuralNetwork(void)
 		line.erase(0, 37);
 		double value = std::stod(line);
 		value == 0 ? trainingSessionNeuralNetworkEta = 0.15 : trainingSessionNeuralNetworkEta = value;
+		// Get Neural Network Alpha From File
 		std::getline(fileDatasetConfiguration, line);
 		if (fileDatasetConfiguration.fail() || line.empty()) {
 			if (debugConsole) { std::cout << "Error ITD.000: \n"; }
@@ -646,6 +689,31 @@ void ImageTrainingDataset::initializeTrainingSessionNeuralNetwork(void)
 		line.erase(0, 39);
 		value = std::stod(line);
 		value == 0 ? trainingSessionNeuralNetworkAlpha = 0.5 : trainingSessionNeuralNetworkAlpha = value;
+		// Get Neural Network Topology From File
+		trainingSessionNeuralNetworkTopology.clear();
+		std::getline(fileDatasetConfiguration, line);
+		if (fileDatasetConfiguration.fail() || line.empty()) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+			abort();
+		}
+		line.erase(0, 42);
+		if (line.size() != 0) {
+			bool getValue = true;
+			do {
+				unsigned index = line.find(",");
+				if (index != -1) {
+					std::string valueString = line.substr(0, index);
+					line.erase(0, index + 1);
+					unsigned valueUnsigned = std::stoi(valueString) - 1;
+					trainingSessionNeuralNetworkTopology.push_back(valueUnsigned);
+				}
+				else {
+					unsigned valueUnsigned = std::stoi(line) - 1;
+					trainingSessionNeuralNetworkTopology.push_back(valueUnsigned);
+					getValue = false;
+				}
+			} while (getValue);
+		}
 	}
 	fileDatasetConfiguration.close();
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
@@ -655,110 +723,113 @@ void ImageTrainingDataset::setDebugConsole(const bool& console)
 {
 	debugConsole = console;
 }
+
 void ImageTrainingDataset::setDirectoryImageTrainingDataset(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.003: Setting the image training dataset directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the image training dataset directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.001: An empty path was provided for the image training dataset directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the image training dataset directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryImageTrainingDataset = path : directoryImageTrainingDataset = path + "\\";
 	if (!std::filesystem::exists(directoryImageTrainingDataset)) {
-		if (debugConsole) { std::cout << "Update U.004: Creating the image training dataset directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the image training dataset directory.\n"; }
 		std::filesystem::create_directory(directoryImageTrainingDataset);
-		if (debugConsole) { std::cout << "Update U.005: Finished creating the image training dataset directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the image training dataset directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.006: Finished setting the image training dataset directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the image training dataset directory.\n"; }
 }
+
 void ImageTrainingDataset::setDirectoryImages(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.007: Setting the images directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the images directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.002: An empty path was provided for the images directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the images directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryImages = path : directoryImages = path + "\\";
 	if (!std::filesystem::exists(directoryImages)) {
-		if (debugConsole) { std::cout << "Update U.008: Creating the images directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the images directory.\n"; }
 		std::filesystem::create_directory(directoryImages);
-		if (debugConsole) { std::cout << "Update U.009: Finished creating the images directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the images directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.010: Finished setting the images directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the images directory.\n"; }
 }
 void ImageTrainingDataset::setDirectoryImageAnnotations(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.011: Setting the image annotations directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the image annotations directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.003: An empty path was provided for the image annotations directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the image annotations directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryImageAnnotations = path : directoryImageAnnotations = path + "\\";
 	if (!std::filesystem::exists(directoryImageAnnotations)) {
-		if (debugConsole) { std::cout << "Update U.012: Creating the image annotations directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the image annotations directory.\n"; }
 		std::filesystem::create_directory(directoryImageAnnotations);
-		if (debugConsole) { std::cout << "Update U.013: Finished creating the image annotations directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the image annotations directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.014: Finished setting the image annotations directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the image annotations directory.\n"; }
 }
+
 void ImageTrainingDataset::setDirectoryTrainingSessions(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.000: Setting the training sessions directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training sessions directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.000: An empty path was provided for the training sessions directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training sessions directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryTrainingSessions = path : directoryTrainingSessions = path + "\\";
 	if (!std::filesystem::exists(directoryTrainingSessions)) {
-		if (debugConsole) { std::cout << "Update U.000: Creating the training sessions directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the training sessions directory.\n"; }
 		std::filesystem::create_directory(directoryTrainingSessions);
-		if (debugConsole) { std::cout << "Update U.000: Finished creating the training sessions directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training sessions directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.000: Finished setting the training sessions directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training sessions directory.\n"; }
 }
 void ImageTrainingDataset::setDirectoryCurrentTrainingSession(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.000: Setting the current training session directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the current training session directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.000: An empty path was provided for the current training session directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the current training session directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryCurrentTrainingSession = path : directoryCurrentTrainingSession = path + "\\";
 	if (!std::filesystem::exists(directoryCurrentTrainingSession)) {
-		if (debugConsole) { std::cout << "Update U.000: Creating a new training session directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating a new training session directory.\n"; }
 		std::filesystem::create_directory(directoryCurrentTrainingSession);
-		if (debugConsole) { std::cout << "Update U.000: Finished creating a new training session directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating a new training session directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.000: Finished setting the current training session directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the current training session directory.\n"; }
 }
 void ImageTrainingDataset::setDirectoryTrainingSessionImages(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.007: Setting the training session images directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session images directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.002: An empty path was provided for the training session images directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training session images directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryTrainingSessionImages = path : directoryTrainingSessionImages = path + "\\";
 	if (!std::filesystem::exists(directoryTrainingSessionImages)) {
-		if (debugConsole) { std::cout << "Update U.008: Creating the training session images directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the training session images directory.\n"; }
 		std::filesystem::create_directory(directoryTrainingSessionImages);
-		if (debugConsole) { std::cout << "Update U.009: Finished creating the training session images directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session images directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.010: Finished setting the training session images directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session images directory.\n"; }
 }
 void ImageTrainingDataset::setDirectoryTrainingSessionImageAnnotations(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.011: Setting the training session image annotations directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session image annotations directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.003: An empty path was provided for the training session image annotations directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training session image annotations directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryTrainingSessionImageAnnotations = path : directoryTrainingSessionImageAnnotations = path + "\\";
 	if (!std::filesystem::exists(directoryTrainingSessionImageAnnotations)) {
-		if (debugConsole) { std::cout << "Update U.012: Creating the training session image annotations directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the training session image annotations directory.\n"; }
 		std::filesystem::create_directory(directoryTrainingSessionImageAnnotations);
-		if (debugConsole) { std::cout << "Update U.013: Finished creating the training session image annotations directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session image annotations directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.014: Finished setting the training session image annotations directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session image annotations directory.\n"; }
 }
 void ImageTrainingDataset::setDirectoryTrainingSessionInputDataFiles(const std::string& path)
 {
@@ -792,103 +863,105 @@ void ImageTrainingDataset::setDirectoryTrainingSessionTargetOutputDataFiles(cons
 }
 void ImageTrainingDataset::setDirectoryTrainingSessionNeuralNetworkArchives(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.000: Setting the training session neural network archives directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session neural network archives directory.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.000: An empty path was provided for the training session neural network archives directory.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training session neural network archives directory.\n"; }
 		abort();
 	}
 	path.find_last_of("\\") == path.length() - 1 ? directoryTrainingSessionNeuralNetworkArchives = path : directoryTrainingSessionNeuralNetworkArchives = path + "\\";
 	if (!std::filesystem::exists(directoryTrainingSessionNeuralNetworkArchives)) {
-		if (debugConsole) { std::cout << "Update U.000: Creating the training session neural network archives directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the training session neural network archives directory.\n"; }
 		std::filesystem::create_directory(directoryTrainingSessionNeuralNetworkArchives);
-		if (debugConsole) { std::cout << "Update U.000: Finished creating the training session neural network archives directory.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session neural network archives directory.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.000: Finished setting the training session neural network archives directory.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session neural network archives directory.\n"; }
 }
-void ImageTrainingDataset::setFilePathTrainingSessionAnnotationList(const std::string& path)
+
+void ImageTrainingDataset::setFilePathTrainingSessionListImageAnnotations(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.020: Setting the training session annotation list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session annotation list text file path.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.005: An empty path was provided for the training session annotation list text file path.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training session annotation list text file path.\n"; }
 		abort();
 	}
-	filePathTrainingSessionAnnotationList = path + "List of Image Annotations.txt";
-	if (!std::filesystem::exists(filePathTrainingSessionAnnotationList)) {
-		if (debugConsole) { std::cout << "Update U.021: Creating the training session annotation list text file.\n"; }
+	filePathTrainingSessionListImageAnnotations = path + "List of Image Annotations.txt";
+	if (!std::filesystem::exists(filePathTrainingSessionListImageAnnotations)) {
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the training session annotation list text file.\n"; }
 		std::fstream fileAnnotationList;
-		fileAnnotationList.open(filePathTrainingSessionAnnotationList, std::ios::out);
+		fileAnnotationList.open(filePathTrainingSessionListImageAnnotations, std::ios::out);
 		if (fileAnnotationList.fail()) {
-			if (debugConsole) { std::cout << "Error TD.006: Failed to create the training session annotation list text file.\n"; }
+			if (debugConsole) { std::cout << "Error ITD.000: Failed to create the training session annotation list text file.\n"; }
 			abort();
 		}
 		fileAnnotationList.close();
-		if (debugConsole) { std::cout << "Update U.022: Finished creating the training session annotation list text file.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session annotation list text file.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.025: Finished setting the training session annotation list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session annotation list text file path.\n"; }
 }
-void ImageTrainingDataset::setFilePathTrainingSessionTrainingImagesList(const std::string& path)
+void ImageTrainingDataset::setFilePathTrainingSessionListTrainingImages(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.020: Setting the training session training images list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session training images list text file path.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.005: An empty path was provided for the training session training images list text file path.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training session training images list text file path.\n"; }
 		abort();
 	}
-	filePathTrainingSessionTrainingImagesList = path + "List of Training Images.txt";
-	if (!std::filesystem::exists(filePathTrainingSessionTrainingImagesList)) {
-		if (debugConsole) { std::cout << "Update U.021: Creating the training session training images list text file.\n"; }
+	filePathTrainingSessionListTrainingImages = path + "List of Training Images.txt";
+	if (!std::filesystem::exists(filePathTrainingSessionListTrainingImages)) {
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the training session training images list text file.\n"; }
 		std::fstream fileTrainingImagesList;
-		fileTrainingImagesList.open(filePathTrainingSessionTrainingImagesList, std::ios::out);
+		fileTrainingImagesList.open(filePathTrainingSessionListTrainingImages, std::ios::out);
 		if (fileTrainingImagesList.fail()) {
-			if (debugConsole) { std::cout << "Error TD.006: Failed to create the training session training images list text file.\n"; }
+			if (debugConsole) { std::cout << "Error ITD.000: Failed to create the training session training images list text file.\n"; }
 			abort();
 		}
 		fileTrainingImagesList.close();
-		if (debugConsole) { std::cout << "Update U.022: Finished creating the training session training images list text file.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session training images list text file.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.025: Finished setting the training session training images list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session training images list text file path.\n"; }
 }
-void ImageTrainingDataset::setFilePathTrainingSessionValidationImagesList(const std::string& path)
+void ImageTrainingDataset::setFilePathTrainingSessionListValidationImages(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.020: Setting the training session validation images list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session validation images list text file path.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.005: An empty path was provided for the training session validation images list text file path.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training session validation images list text file path.\n"; }
 		abort();
 	}
-	filePathTrainingSessionValidationImagesList = path + "List of Validation Images.txt";
-	if (!std::filesystem::exists(filePathTrainingSessionValidationImagesList)) {
-		if (debugConsole) { std::cout << "Update U.021: Creating the training session validation images list text file.\n"; }
+	filePathTrainingSessionListValidationImages = path + "List of Validation Images.txt";
+	if (!std::filesystem::exists(filePathTrainingSessionListValidationImages)) {
+		if (debugConsole) { std::cout << "Update ITD.000: Creating the training session validation images list text file.\n"; }
 		std::fstream fileValidationImagesList;
-		fileValidationImagesList.open(filePathTrainingSessionValidationImagesList, std::ios::out);
+		fileValidationImagesList.open(filePathTrainingSessionListValidationImages, std::ios::out);
 		if (fileValidationImagesList.fail()) {
-			if (debugConsole) { std::cout << "Error TD.006: Failed to create the training session validation images list text file.\n"; }
+			if (debugConsole) { std::cout << "Error ITD.00: Failed to create the training session validation images list text file.\n"; }
 			abort();
 		}
 		fileValidationImagesList.close();
-		if (debugConsole) { std::cout << "Update U.022: Finished creating the training session validation images list text file.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session validation images list text file.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.025: Finished setting the training session validation images list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session validation images list text file path.\n"; }
 }
-void ImageTrainingDataset::setFilePathTrainingSessionTestImagesList(const std::string& path)
+void ImageTrainingDataset::setFilePathTrainingSessionListTestImages(const std::string& path)
 {
-	if (debugConsole) { std::cout << "Update U.020: Setting the training session test images list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session test images list text file path.\n"; }
 	if (path.empty()) {
-		if (debugConsole) { std::cout << "Error TD.005: An empty path was provided for the training session test images list text file path.\n"; }
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the training session test images list text file path.\n"; }
 		abort();
 	}
-	filePathTrainingSessionTestImagesList = path + "List of Test Images.txt";
-	if (!std::filesystem::exists(filePathTrainingSessionTestImagesList)) {
-		if (debugConsole) { std::cout << "Update U.021: Creating the training session test images list text file.\n"; }
+	filePathTrainingSessionListTestImages = path + "List of Test Images.txt";
+	if (!std::filesystem::exists(filePathTrainingSessionListTestImages)) {
+		if (debugConsole) { std::cout << "Update ITD.0OO: Creating the training session test images list text file.\n"; }
 		std::fstream fileTestImagesList;
-		fileTestImagesList.open(filePathTrainingSessionTestImagesList, std::ios::out);
+		fileTestImagesList.open(filePathTrainingSessionListTestImages, std::ios::out);
 		if (fileTestImagesList.fail()) {
-			if (debugConsole) { std::cout << "Error TD.006: Failed to create the training session test images list text file.\n"; }
+			if (debugConsole) { std::cout << "Error ITD.000: Failed to create the training session test images list text file.\n"; }
 			abort();
 		}
 		fileTestImagesList.close();
-		if (debugConsole) { std::cout << "Update U.022: Finished creating the training session test images list text file.\n"; }
+		if (debugConsole) { std::cout << "Update ITD.000: Finished creating the training session test images list text file.\n"; }
 	}
-	if (debugConsole) { std::cout << "Update U.025: Finished setting the training session test images list text file path.\n"; }
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session test images list text file path.\n"; }
 }
+
 void ImageTrainingDataset::setFilePathTrainingSessionDatasetConfiguration(const std::string& path)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session dataset configuration text file path.\n"; }
@@ -910,26 +983,88 @@ void ImageTrainingDataset::setFilePathTrainingSessionDatasetConfiguration(const 
 	}
 	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session dataset configuration text file path.\n"; }
 }
-void ImageTrainingDataset::setTrainingSessionAnnotationList(void)
+
+void ImageTrainingDataset::setTrainingSessionListImageAnnotations(void)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session annotation list.\n"; }
-	std::fstream fileAnnotationList;
-	fileAnnotationList.open(filePathTrainingSessionAnnotationList, std::ios::in);
-	if (fileAnnotationList.fail()) {
+	std::fstream fileListImageAnnotations;
+	fileListImageAnnotations.open(filePathTrainingSessionListImageAnnotations, std::ios::in);
+	if (fileListImageAnnotations.fail()) {
 		if (debugConsole) { std::cout << "Error ITD.000: Failed to open the training session annotation list text file.\n"; }
 		abort();
 	}
-	trainingSessionAnnotationList.clear();
+	trainingSessionListImageAnnotations.clear();
 	std::string line;
 	do {
-		std::getline(fileAnnotationList, line);
-		if (!line.empty() && !fileAnnotationList.fail()) {
-			trainingSessionAnnotationList.push_back(line);
+		std::getline(fileListImageAnnotations, line);
+		if (!line.empty() && !fileListImageAnnotations.fail()) {
+			trainingSessionListImageAnnotations.push_back(line);
 		}
-	} while (!line.empty() && !fileAnnotationList.fail());
-	fileAnnotationList.close();
+	} while (!line.empty() && !fileListImageAnnotations.fail());
+	fileListImageAnnotations.close();
 	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session annotation list.\n"; }
 }
+void ImageTrainingDataset::setTrainingSessionListTrainingImages(void)
+{
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session training images list.\n"; }
+	std::fstream fileListTrainingImages;
+	fileListTrainingImages.open(filePathTrainingSessionListTrainingImages, std::ios::in);
+	if (fileListTrainingImages.fail()) {
+		if (debugConsole) { std::cout << "Error ITD.000: Failed to open the training session training images list text file.\n"; }
+		abort();
+	}
+	trainingSessionListTrainingImages.clear();
+	std::string line;
+	do {
+		std::getline(fileListTrainingImages, line);
+		if (!line.empty() && !fileListTrainingImages.fail()) {
+			trainingSessionListTrainingImages.push_back(line);
+		}
+	} while (!line.empty() && !fileListTrainingImages.fail());
+	fileListTrainingImages.close();
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session training images list.\n"; }
+}
+void ImageTrainingDataset::setTrainingSessionListValidationImages(void)
+{
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session validation images list.\n"; }
+	std::fstream fileListValidationImages;
+	fileListValidationImages.open(filePathTrainingSessionListValidationImages, std::ios::in);
+	if (fileListValidationImages.fail()) {
+		if (debugConsole) { std::cout << "Error ITD.000: Failed to open the training session validation images list text file.\n"; }
+		abort();
+	}
+	trainingSessionListValidationImages.clear();
+	std::string line;
+	do {
+		std::getline(fileListValidationImages, line);
+		if (!line.empty() && !fileListValidationImages.fail()) {
+			trainingSessionListValidationImages.push_back(line);
+		}
+	} while (!line.empty() && !fileListValidationImages.fail());
+	fileListValidationImages.close();
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session validation images list.\n"; }
+}
+void ImageTrainingDataset::setTrainingSessionListTestImages(void)
+{
+	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session test images list.\n"; }
+	std::fstream fileListTestImages;
+	fileListTestImages.open(filePathTrainingSessionListTestImages, std::ios::in);
+	if (fileListTestImages.fail()) {
+		if (debugConsole) { std::cout << "Error ITD.000: Failed to open the training session test images list text file.\n"; }
+		abort();
+	}
+	trainingSessionListTestImages.clear();
+	std::string line;
+	do {
+		std::getline(fileListTestImages, line);
+		if (!line.empty() && !fileListTestImages.fail()) {
+			trainingSessionListTestImages.push_back(line);
+		}
+	} while (!line.empty() && !fileListTestImages.fail());
+	fileListTestImages.close();
+	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session test images list.\n"; }
+}
+
 void ImageTrainingDataset::setTrainingSessionImageWidth(const unsigned& width)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session image width.\n"; }
@@ -942,21 +1077,7 @@ void ImageTrainingDataset::setTrainingSessionImageHeight(const unsigned& height)
 	trainingSessionImageHeight = height;
 	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session image height.\n"; }
 }
-void ImageTrainingDataset::setTrainingSessionNeuralNetworkTopology(const std::vector<unsigned>& hiddenLayersTopology)
-{
-	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
-	trainingSessionNeuralNetworkTopology.clear();
-	if (trainingSessionImageWidth == 0 || trainingSessionImageHeight == 0 || trainingSessionAnnotationList.size() == 0) {
-		if (debugConsole) { std::cout << "Error ITD.000: \n"; };
-		abort();
-	}
-	trainingSessionNeuralNetworkTopology.push_back(trainingSessionImageWidth * trainingSessionImageHeight);
-	for (unsigned layerIndex = 0; layerIndex < hiddenLayersTopology.size(); layerIndex++) {
-		trainingSessionNeuralNetworkTopology.push_back(hiddenLayersTopology[layerIndex]);
-	}
-	trainingSessionNeuralNetworkTopology.push_back(trainingSessionAnnotationList.size());
-	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
-}
+
 void ImageTrainingDataset::setTrainingSessionNeuralNetworkEta(const double& eta)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: Setting the training session network eta.\n"; }
@@ -969,24 +1090,59 @@ void ImageTrainingDataset::setTrainingSessionNeuralNetworkAlpha(const double& al
 	trainingSessionNeuralNetworkAlpha = alpha;
 	if (debugConsole) { std::cout << "Update ITD.000: Finished setting the training session network alpha.\n"; }
 }
+void ImageTrainingDataset::setTrainingSessionNeuralNetworkTopology(const std::vector<unsigned>& hiddenLayersTopology)
+{
+	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
+	trainingSessionNeuralNetworkTopology.clear();
+	if (trainingSessionImageWidth == 0 || trainingSessionImageHeight == 0 || trainingSessionListImageAnnotations.size() == 0) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; };
+		abort();
+	}
+	trainingSessionNeuralNetworkTopology.push_back(trainingSessionImageWidth * trainingSessionImageHeight);
+	for (unsigned layerIndex = 0; layerIndex < hiddenLayersTopology.size(); layerIndex++) {
+		trainingSessionNeuralNetworkTopology.push_back(hiddenLayersTopology[layerIndex]);
+	}
+	trainingSessionNeuralNetworkTopology.push_back(trainingSessionListImageAnnotations.size());
+	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
+}
 
-void ImageTrainingDataset::createNewTrainingSession(const std::string& path)
+void ImageTrainingDataset::newTrainingSession(const std::string& path)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
-	setDirectoryCurrentTrainingSession(directoryTrainingSessions + path);
+	if (path.empty()) {
+		if (debugConsole) { std::cout << "Error ITD.000: An empty path was provided for the new training session directory.\n"; }
+		abort();
+	}
+	std::string tempPath = directoryTrainingSessions + path;
+	if (path.find_last_of("\\") != path.length() - 1) {
+		tempPath += "\\";
+	}
+	if (std::filesystem::exists(tempPath)) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+		abort();
+	}
+	setDirectoryImages(directoryImageTrainingDataset + "Images\\");
+	setDirectoryImageAnnotations(directoryImages + "Image Annotations\\");
+	setDirectoryCurrentTrainingSession(tempPath);
 	setDirectoryTrainingSessionImages(directoryCurrentTrainingSession + "Images\\");
 	setDirectoryTrainingSessionImageAnnotations(directoryTrainingSessionImages + "Image Annotations\\");
+	setDirectoryTrainingSessionInputDataFiles(directoryCurrentTrainingSession + "Input Data Files\\");
 	setDirectoryTrainingSessionTargetOutputDataFiles(directoryCurrentTrainingSession + "Target Output Data Files\\");
 	setDirectoryTrainingSessionNeuralNetworkArchives(directoryCurrentTrainingSession + "Neural Network Archives\\");
-	setFilePathTrainingSessionAnnotationList(directoryCurrentTrainingSession + "Annotation List.txt");
-	setFilePathTrainingSessionDatasetConfiguration(directoryCurrentTrainingSession + "Dataset Configuration.txt");
-	updateDirectoryTrainingSessionImages();
-	updateDirectoryTrainingSessionImageAnnotations();
-	updateFileTrainingSessionAnnotationList();
+	setFilePathTrainingSessionListTrainingImages(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListValidationImages(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListTestImages(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionDatasetConfiguration(directoryCurrentTrainingSession);
+	setTrainingSessionListImageAnnotations();
+	setTrainingSessionListTrainingImages();
+	setTrainingSessionListValidationImages();
+	setTrainingSessionListTestImages();
 	verifyTrainingSessionImageSizesMatch();
+	initializeTrainingSessionNeuralNetwork();
+	updateFileTrainingSessionDatasetConfiguration();
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
 }
-void ImageTrainingDataset::selectExistingTrainingSession(const std::string& path)
+void ImageTrainingDataset::existingTrainingSession(const std::string& path)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: Selecting an existing training session directory.\n"; }
 	if (path.empty()) {
@@ -998,21 +1154,73 @@ void ImageTrainingDataset::selectExistingTrainingSession(const std::string& path
 		tempPath += "\\";
 	}
 	if (!std::filesystem::exists(tempPath)) {
+		if (debugConsole) { std::cout << "Error ITD.000: The existing training session directory does not exist.\n"; }
 		abort();
 	}
 	setDirectoryCurrentTrainingSession(tempPath);
+	setFilePathTrainingSessionDatasetConfiguration(directoryCurrentTrainingSession);
+	// Add Comment Here Later
+	std::fstream fileDatasetConfiguration;
+	fileDatasetConfiguration.open(filePathTrainingSessionDatasetConfiguration, std::ios::in);
+	if (!fileDatasetConfiguration.is_open()) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; };
+		abort();
+	}	
+	std::string line;
+	// Get Main Directory For Images
+	for (unsigned index = 0; index < 5; index++) {
+		std::getline(fileDatasetConfiguration, line);
+		if (fileDatasetConfiguration.fail()) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+			abort();
+		}
+	}
+	if (line.size() == 0) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+		abort();
+	}
+	else {
+		if (!std::filesystem::exists(line) || !std::filesystem::is_directory(line)) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+			abort();
+		}
+		setDirectoryImages(line);
+	}
+	// Get Main Directory For Image Annotations
+	for (unsigned index = 0; index < 3; index++) {
+		std::getline(fileDatasetConfiguration, line);
+		if (fileDatasetConfiguration.fail()) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+			abort();
+		}
+	}
+	if (line.size() == 0) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+		abort();
+	}
+	else {
+		if (!std::filesystem::exists(line) || !std::filesystem::is_directory(line)) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+			abort();
+		}
+		setDirectoryImageAnnotations(line);
+	}
+	fileDatasetConfiguration.close();
 	setDirectoryTrainingSessionImages(directoryCurrentTrainingSession + "Images\\");
 	setDirectoryTrainingSessionImageAnnotations(directoryTrainingSessionImages + "Image Annotations\\");
 	setDirectoryTrainingSessionInputDataFiles(directoryCurrentTrainingSession + "Input Data Files\\");
 	setDirectoryTrainingSessionTargetOutputDataFiles(directoryCurrentTrainingSession + "Target Output Data Files\\");
 	setDirectoryTrainingSessionNeuralNetworkArchives(directoryCurrentTrainingSession + "Neural Network Archives\\");
-	setFilePathTrainingSessionAnnotationList(directoryCurrentTrainingSession);
-	setFilePathTrainingSessionTrainingImagesList(directoryCurrentTrainingSession);
-	setFilePathTrainingSessionValidationImagesList(directoryCurrentTrainingSession);
-	setFilePathTrainingSessionTestImagesList(directoryCurrentTrainingSession);
-	setFilePathTrainingSessionDatasetConfiguration(directoryCurrentTrainingSession);
-	setTrainingSessionAnnotationList();
+	setFilePathTrainingSessionListImageAnnotations(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListTrainingImages(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListValidationImages(directoryCurrentTrainingSession);
+	setFilePathTrainingSessionListTestImages(directoryCurrentTrainingSession);	
+	setTrainingSessionListImageAnnotations();
+	setTrainingSessionListTrainingImages();
+	setTrainingSessionListValidationImages();
+	setTrainingSessionListTestImages();
 	verifyTrainingSessionImageSizesMatch();
+	initializeTrainingSessionNeuralNetwork();
 	if (debugConsole) { std::cout << "Update ITD.000: Finished selecting an existing training session directory.\n"; }
 }
 
@@ -1035,6 +1243,7 @@ void ImageTrainingDataset::updateDirectoryTrainingSessionImages(void)
 			}
 		}
 	}
+	verifyTrainingSessionImageSizesMatch();
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
 }
 void ImageTrainingDataset::verifyTrainingSessionImageSizesMatch(void)
@@ -1097,16 +1306,44 @@ void ImageTrainingDataset::updateDirectoryTrainingSessionImageAnnotations(void)
 			}
 		}
 	}
+	verifyTrainingSessionImagesHaveImageAnnotations();
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
 }
-void ImageTrainingDataset::updateFileTrainingSessionAnnotationList(void)
+void ImageTrainingDataset::verifyTrainingSessionImagesHaveImageAnnotations(void)
+{
+	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
+	std::vector<std::string> listValidImageAnnotationFiles;
+	for (auto const& dir_entry : std::filesystem::directory_iterator(directoryTrainingSessionImages)) {
+		if (std::filesystem::is_regular_file(dir_entry)) {
+			std::string filePathImageAnnotations = directoryTrainingSessionImageAnnotations + dir_entry.path().stem().string() + ".txt";
+			if (!std::filesystem::exists(filePathImageAnnotations)) {
+				std::cout << "Error ITD.000: \n";
+				abort();
+			}
+			listValidImageAnnotationFiles.push_back(filePathImageAnnotations);
+		}
+	}
+	for (auto const& dir_entry : std::filesystem::directory_iterator(directoryTrainingSessionImageAnnotations)) {
+		if (std::filesystem::is_regular_file(dir_entry)) {
+			bool validFile = false;
+			for (auto const& filePath : listValidImageAnnotationFiles) {
+				if (dir_entry.path().string() == filePath) { validFile = true; }
+			}
+			if (!validFile) {
+				std::filesystem::remove(dir_entry);
+			}
+		}
+	}
+	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
+}
+void ImageTrainingDataset::updateFileTrainingSessionListImageAnnotations(void) // Review later because of list of image annotations
 {
 	if (debugConsole) { std::cout << "Update ITD.000: Updating the training session annotation list text file.\n"; }
 	for (auto const& dir_entry : std::filesystem::directory_iterator(directoryTrainingSessionImageAnnotations)) {
 		if (std::filesystem::is_regular_file(dir_entry) && std::filesystem::path(dir_entry).extension() == ".txt") {
 			std::fstream fileImageAnnotations;
 			fileImageAnnotations.open(dir_entry, std::ios::in);
-			if (fileImageAnnotations.fail()) {
+			if (!fileImageAnnotations.is_open()) {
 				if (debugConsole) { std::cout << "Error ITD.000: Failed to open a training session image annotations text file.\n"; }
 				abort();
 			}
@@ -1115,8 +1352,8 @@ void ImageTrainingDataset::updateFileTrainingSessionAnnotationList(void)
 				std::getline(fileImageAnnotations, annotation);
 				if (!annotation.empty() && !fileImageAnnotations.fail()) {
 					std::fstream fileAnnotationList;
-					fileAnnotationList.open(filePathTrainingSessionAnnotationList, std::ios::in);
-					if (fileAnnotationList.fail()) {
+					fileAnnotationList.open(filePathTrainingSessionListImageAnnotations, std::ios::in);
+					if (!fileAnnotationList.is_open()) {
 						if (debugConsole) { std::cout << "Error ITD.000: Failed to open the training session annotation list text file.\n"; }
 						abort();
 					}
@@ -1130,8 +1367,8 @@ void ImageTrainingDataset::updateFileTrainingSessionAnnotationList(void)
 					} while (!listAnnotation.empty() && !foundAnnotation);
 					fileAnnotationList.close();
 					if (!foundAnnotation) {
-						fileAnnotationList.open(filePathTrainingSessionAnnotationList, std::ios::app);
-						if (fileAnnotationList.fail()) {
+						fileAnnotationList.open(filePathTrainingSessionListImageAnnotations, std::ios::app);
+						if (!fileAnnotationList.is_open()) {
 							if (debugConsole) { std::cout << "Error ITD.000: Failed to open the training session annotation list text file.\n"; }
 							abort();
 						}
@@ -1144,7 +1381,7 @@ void ImageTrainingDataset::updateFileTrainingSessionAnnotationList(void)
 		}
 	}
 	if (debugConsole) { std::cout << "Update ITD.000: Finished updating the training session annotations list text file.\n"; }
-	setTrainingSessionAnnotationList();
+	setTrainingSessionListImageAnnotations();
 }
 void ImageTrainingDataset::updateTrainingSessionInputDataFiles(void)
 {
@@ -1179,8 +1416,8 @@ void ImageTrainingDataset::updateTrainingSessionInputDataFiles(void)
 					else {
 						fileInputData << std::endl;
 					}
-					unsigned pixelValue = grayscaleImage.at<uchar>(row, col); // Access grayscale pixel value
-					fileInputData << pixelValue;
+					double pixelValue = grayscaleImage.at<uchar>(row, col); // Access grayscale pixel value
+					fileInputData << pixelValue / 255.0;
 				}
 			}
 			fileInputData.close();
@@ -1199,6 +1436,10 @@ void ImageTrainingDataset::updateTrainingSessionTargetOutputDataFiles(void)
 			std::string line;
 			std::vector<std::string> imageAnnotations;
 			fileImageAnnotations.open(dir_entry, std::ios::in);
+			if (!fileImageAnnotations.is_open()) {
+				if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+				abort();
+			}
 			do {
 				std::getline(fileImageAnnotations, line);
 				if (!line.empty() && !fileImageAnnotations.fail()) {
@@ -1210,14 +1451,18 @@ void ImageTrainingDataset::updateTrainingSessionTargetOutputDataFiles(void)
 			std::string filePathTargetOutputData = directoryTrainingSessionTargetOutputDataFiles + std::filesystem::path(dir_entry).stem().string() + ".TODF.txt";
 			std::fstream fileTargetOutputData;
 			fileTargetOutputData.open(filePathTargetOutputData, std::ios::out);
-			for (std::string annotationFromList : trainingSessionAnnotationList) {
+			if (!fileTargetOutputData.is_open()) {
+				if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+				abort();
+			}
+			for (std::string annotationFromList : trainingSessionListImageAnnotations) {
 				bool found = false;
 				for (std::string annotationFromImage : imageAnnotations) {
 					if (annotationFromList == annotationFromImage) { found = true; }
 				}
 				found ? fileTargetOutputData << "1\n" : fileTargetOutputData << "0\n";
 			}
-			// Comment Here (bias node on output layer)
+			// Comment Here (add bias node on output layer...)
 			fileTargetOutputData << "1\n";
 			fileTargetOutputData.close();
 		}
@@ -1226,7 +1471,9 @@ void ImageTrainingDataset::updateTrainingSessionTargetOutputDataFiles(void)
 }
 void ImageTrainingDataset::updateTrainingSessionTrainingValidationAndTestFiles(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData)
 {
+	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
 	if (percentTrainingData + percentValidationData + percentTestData != 1.0) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; }
 		abort();
 	}
 	unsigned numberOfImages = 0;
@@ -1234,8 +1481,10 @@ void ImageTrainingDataset::updateTrainingSessionTrainingValidationAndTestFiles(c
 		if (std::filesystem::is_regular_file(dir_entry)) { numberOfImages++; }		
 	}
 	if (numberOfImages < 3) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; }
 		abort();
 	}
+	// Add Comment Here Later
 	unsigned numberOfTrainingImages = std::round(numberOfImages * percentTrainingData);
 	if (numberOfTrainingImages == 0) { numberOfTrainingImages = 1; }
 	unsigned numberOfValidationImages = std::round(numberOfImages * percentValidationData);
@@ -1243,6 +1492,7 @@ void ImageTrainingDataset::updateTrainingSessionTrainingValidationAndTestFiles(c
 	unsigned numberOfTestImages = std::round(numberOfImages * percentTestData);
 	if (numberOfTestImages == 0) { numberOfTestImages = 1; }
 	unsigned sumOfImages = numberOfTrainingImages + numberOfValidationImages + numberOfTestImages;
+	// Add Comment Here Later
 	if (sumOfImages > numberOfImages) {
 		do {
 			if (numberOfTrainingImages >= 2 && sumOfImages != numberOfImages) { numberOfTrainingImages--; }
@@ -1263,51 +1513,53 @@ void ImageTrainingDataset::updateTrainingSessionTrainingValidationAndTestFiles(c
 			sumOfImages = numberOfTrainingImages + numberOfValidationImages + numberOfTestImages;
 		} while (sumOfImages != numberOfImages);
 	}
-	std::vector<std::string> listOfTrainingImages;
-	std::vector<std::string> listOfValidationImages;
-	std::vector<std::string> listOfTestImages;
+	// Add Comment Here Later
+	trainingSessionListTrainingImages.clear();
+	trainingSessionListValidationImages.clear();
+	trainingSessionListTestImages.clear();
+	std::fstream fileTrainingImagesList;
+	std::fstream fileValidationImagesList;
+	std::fstream fileTestImagesList;
+	fileTrainingImagesList.open(filePathTrainingSessionListTrainingImages, std::ios::out);
+	fileValidationImagesList.open(filePathTrainingSessionListValidationImages, std::ios::out);
+	fileTestImagesList.open(filePathTrainingSessionListTestImages, std::ios::out);
+	if (!fileTrainingImagesList.is_open() || !fileValidationImagesList.is_open() || !fileTestImagesList.is_open()) {
+		if (debugConsole) { std::cout << "Error ITD.000: \n"; }
+		abort();
+	}
+	// Add Comment Here Later
 	for (auto const& dir_entry : std::filesystem::directory_iterator(directoryTrainingSessionInputDataFiles)) {
 		if (std::filesystem::is_regular_file(dir_entry)) {
-			if (listOfTrainingImages.size() < numberOfTrainingImages) { 
-				listOfTrainingImages.push_back(dir_entry.path().string());
+			if (trainingSessionListTrainingImages.size() < numberOfTrainingImages) {
+				trainingSessionListTrainingImages.push_back(dir_entry.path().string());
+				fileTrainingImagesList << dir_entry.path().string() << std::endl;
 			}
-			else if (listOfValidationImages.size() < numberOfValidationImages) {
-				listOfValidationImages.push_back(dir_entry.path().string());
+			else if (trainingSessionListValidationImages.size() < numberOfValidationImages) {
+				trainingSessionListValidationImages.push_back(dir_entry.path().string());
+				fileValidationImagesList << dir_entry.path().string() << std::endl;
 			}
-			else if (listOfTestImages.size() < numberOfTestImages) {
-				listOfTestImages.push_back(dir_entry.path().string());
+			else if (trainingSessionListTestImages.size() < numberOfTestImages) {
+				trainingSessionListTestImages.push_back(dir_entry.path().string());
+				fileTestImagesList << dir_entry.path().string() << std::endl;
 			}
 			else {
+				if (debugConsole) { std::cout << "Error ITD.000: \n"; }
 				abort();
 			}
 		}
 	}
-	std::fstream fileTrainingImagesList;
-	fileTrainingImagesList.open(filePathTrainingSessionTrainingImagesList, std::ios::out);
-	for (const std::string& imagePath : listOfTrainingImages) {
-		fileTrainingImagesList << imagePath << std::endl;
-	}
+	// Add Comment Here Later
 	fileTrainingImagesList.close();
-	std::fstream fileValidationImagesList;
-	fileValidationImagesList.open(filePathTrainingSessionValidationImagesList, std::ios::out);
-	for (const std::string& imagePath : listOfValidationImages) {
-		fileValidationImagesList << imagePath << std::endl;
-	}
 	fileValidationImagesList.close();
-	std::fstream fileTestImagesList;
-	fileTestImagesList.open(filePathTrainingSessionTestImagesList, std::ios::out);
-	for (const std::string& imagePath : listOfTestImages) {
-		fileTestImagesList << imagePath << std::endl;
-	}
 	fileTestImagesList.close();
+	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
 }
 void ImageTrainingDataset::updateTrainingSession(const double& percentTrainingData, const double& percentValidationData, const double& percentTestData)
 {
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
-	updateDirectoryTrainingSessionImages();
-	verifyTrainingSessionImageSizesMatch();
+	updateDirectoryTrainingSessionImages();	
 	updateDirectoryTrainingSessionImageAnnotations();
-	updateFileTrainingSessionAnnotationList();
+	updateFileTrainingSessionListImageAnnotations();
 	updateTrainingSessionInputDataFiles();
 	updateTrainingSessionTargetOutputDataFiles();
 	updateTrainingSessionTrainingValidationAndTestFiles(percentTrainingData, percentValidationData, percentTestData);
@@ -1319,7 +1571,7 @@ void ImageTrainingDataset::updateFileTrainingSessionDatasetConfiguration(void)
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; }
 	std::fstream fileDatasetConfiguration;
 	fileDatasetConfiguration.open(filePathTrainingSessionDatasetConfiguration, std::ios::out);
-	if (fileDatasetConfiguration.fail()) {
+	if (!fileDatasetConfiguration.is_open()) {
 		if (debugConsole) { std::cout << "Error ITD.000: Failed to open the training session dataset configuration text file.\n"; }
 		abort();
 	}
@@ -1333,15 +1585,15 @@ void ImageTrainingDataset::updateFileTrainingSessionDatasetConfiguration(void)
 	fileDatasetConfiguration << "Directory Training Session Input Data Files:\n" << directoryTrainingSessionInputDataFiles << "\n\n";
 	fileDatasetConfiguration << "Directory Training Session Target Output Data Files:\n" << directoryTrainingSessionTargetOutputDataFiles << "\n\n";
 	fileDatasetConfiguration << "Directory Training Session Neural Network Archives:\n" << directoryTrainingSessionNeuralNetworkArchives << "\n\n";
-	fileDatasetConfiguration << "File Path Training Session Annotation List:\n" << filePathTrainingSessionAnnotationList << "\n\n";
-	fileDatasetConfiguration << "File Path Training Session Training Images List:\n" << filePathTrainingSessionTrainingImagesList << "\n\n";
-	fileDatasetConfiguration << "File Path Training Session Validation Images List:\n" << filePathTrainingSessionValidationImagesList << "\n\n";
-	fileDatasetConfiguration << "File Path Training Session Test Images List:\n" << filePathTrainingSessionTestImagesList << "\n\n";
+	fileDatasetConfiguration << "File Path Training Session Annotation List:\n" << filePathTrainingSessionListImageAnnotations << "\n\n";
+	fileDatasetConfiguration << "File Path Training Session Training Images List:\n" << filePathTrainingSessionListTrainingImages << "\n\n";
+	fileDatasetConfiguration << "File Path Training Session Validation Images List:\n" << filePathTrainingSessionListValidationImages << "\n\n";
+	fileDatasetConfiguration << "File Path Training Session Test Images List:\n" << filePathTrainingSessionListTestImages << "\n\n";
 	fileDatasetConfiguration << "Training Session Width Of Input Images: " << trainingSessionImageWidth << std::endl;
 	fileDatasetConfiguration << "Training Session Height Of Input Images: " << trainingSessionImageHeight << std::endl;
-	fileDatasetConfiguration << "Training Session Number Of Image Annotations: " << trainingSessionAnnotationList.size() << "\n\n";
+	fileDatasetConfiguration << "Training Session Number Of Image Annotations: " << trainingSessionListImageAnnotations.size() << "\n\n";
 	fileDatasetConfiguration << "Training Session Neural Network Input Layer Size: " << trainingSessionImageWidth * trainingSessionImageHeight + 1 << std::endl;
-	fileDatasetConfiguration << "Training Session Neural Network Output Layer Size: " << trainingSessionAnnotationList.size() + 1 << std::endl;
+	fileDatasetConfiguration << "Training Session Neural Network Output Layer Size: " << trainingSessionListImageAnnotations.size() + 1 << std::endl;
 	fileDatasetConfiguration << "Training Session Neural Network Eta: " << trainingSessionNeuralNetworkEta << std::endl;
 	fileDatasetConfiguration << "Training Session Neural Network Alpha: " << trainingSessionNeuralNetworkAlpha << std::endl;
 	fileDatasetConfiguration << "Training Session Neural Network Topology: ";
@@ -1358,7 +1610,7 @@ void ImageTrainingDataset::newNeuralNetwork(const double& eta, const double& alp
 	setTrainingSessionNeuralNetworkEta(eta);
 	setTrainingSessionNeuralNetworkAlpha(alpha);
 	setTrainingSessionNeuralNetworkTopology(hiddenLayersTopology);	
-	updateFileTrainingSessionDatasetConfiguration(); // Revisit Placement Later...
+	updateFileTrainingSessionDatasetConfiguration();
 	trainingSessionNeuralNetwork.createNewNeuralNetwork(trainingSessionNeuralNetworkTopology, trainingSessionNeuralNetworkEta, trainingSessionNeuralNetworkAlpha);
 	if (debugConsole) { std::cout << "Update ITD.000: Finished creating a new neural network for training.\n"; }
 }
@@ -1391,64 +1643,52 @@ void ImageTrainingDataset::archiveNeuralNetwork(const std::string& fileStem)
 
 void ImageTrainingDataset::runTrainingImages(void)
 {
-	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
-	std::fstream fileTrainingImagesList;
-	fileTrainingImagesList.open(filePathTrainingSessionTrainingImagesList, std::ios::in);
-	if (!fileTrainingImagesList.is_open()) {
-		if (debugConsole) { std::cout << "Error ITD.000: \n"; };
-		abort();
-	}
-	std::string filePathInputDataFile;
-	do {
-		std::getline(fileTrainingImagesList, filePathInputDataFile);
-		if (!fileTrainingImagesList.fail() && !filePathInputDataFile.empty()) {
-			// Add Comment Here Later
-			std::fstream fileInputData;
-			fileInputData.open(filePathInputDataFile, std::ios::in);
-			if (!fileInputData.is_open()) {
-				if (debugConsole) { std::cout << "Error ITD.000: \n"; };
-				abort();
-			}
-			std::vector<double> dataInput;
-			std::string data;
-			do {
-				std::getline(fileInputData, data);
-				if (!fileInputData.fail() && !data.empty()) {
-					dataInput.push_back(std::stod(data));
-				}
-			} while (!fileInputData.fail() && !data.empty());
-			fileInputData.close();
-			// Feed Forward
-			trainingSessionNeuralNetwork.feedForward(dataInput);
-			// Add Comment Here Later			
-			std::string filePathTargetOutputDataFile = std::filesystem::path(filePathInputDataFile).stem().string();
-			filePathTargetOutputDataFile = directoryTrainingSessionTargetOutputDataFiles + filePathTargetOutputDataFile.substr(0, filePathTargetOutputDataFile.length() - 4) + ".TODF.txt";
-			if (!std::filesystem::exists(filePathTargetOutputDataFile)) {
-				if (debugConsole) { std::cout << "Error ITD.000: \n"; };
-				abort();
-			}
-			std::fstream fileTargetOutputData;
-			fileTargetOutputData.open(filePathTargetOutputDataFile, std::ios::in);
-			if (!fileTargetOutputData.is_open()) {
-				if (debugConsole) { std::cout << "Error ITD.000: \n"; };
-				abort();
-			}
-			std::vector<double> dataTargetOutput;
-			do {
-				std::getline(fileTargetOutputData, data);
-				if (!fileTargetOutputData.fail() && !data.empty()) {
-					dataTargetOutput.push_back(std::stod(data));
-				}
-			} while (!fileTargetOutputData.fail() && !data.empty());
-			fileTargetOutputData.close();
-			// Back Propagation
-			trainingSessionNeuralNetwork.backPropagation(dataTargetOutput);
+	if (debugConsole) { std::cout << "Update ITD.000: \n"; };	
+	for (auto const& filePathInputDataFile : trainingSessionListTrainingImages) {
+		// Add Comment Here Later
+		std::fstream fileInputData;
+		fileInputData.open(filePathInputDataFile, std::ios::in);
+		if (!fileInputData.is_open()) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; };
+			abort();
 		}
-	} while (!fileTrainingImagesList.fail() && !filePathInputDataFile.empty());
-	fileTrainingImagesList.close();
+		std::vector<double> dataInput;
+		std::string data;
+		do {
+			std::getline(fileInputData, data);
+			if (!fileInputData.fail() && !data.empty()) {
+				dataInput.push_back(std::stod(data));
+			}
+		} while (!fileInputData.fail() && !data.empty());
+		fileInputData.close();
+		// Feed Forward
+		trainingSessionNeuralNetwork.feedForward(dataInput);
+		// Add Comment Here Later			
+		std::string filePathTargetOutputDataFile = std::filesystem::path(filePathInputDataFile).stem().string();
+		filePathTargetOutputDataFile = directoryTrainingSessionTargetOutputDataFiles + filePathTargetOutputDataFile.substr(0, filePathTargetOutputDataFile.length() - 4) + ".TODF.txt";
+		if (!std::filesystem::exists(filePathTargetOutputDataFile)) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; };
+			abort();
+		}
+		std::fstream fileTargetOutputData;
+		fileTargetOutputData.open(filePathTargetOutputDataFile, std::ios::in);
+		if (!fileTargetOutputData.is_open()) {
+			if (debugConsole) { std::cout << "Error ITD.000: \n"; };
+			abort();
+		}
+		std::vector<double> dataTargetOutput;
+		do {
+			std::getline(fileTargetOutputData, data);
+			if (!fileTargetOutputData.fail() && !data.empty()) {
+				dataTargetOutput.push_back(std::stod(data));
+			}
+		} while (!fileTargetOutputData.fail() && !data.empty());
+		fileTargetOutputData.close();
+		// Back Propagation
+		trainingSessionNeuralNetwork.backPropagation(dataTargetOutput);
+	}
 	if (debugConsole) { std::cout << "Update ITD.000: \n"; };
 }
-// Working On These Two Functions Currently
 void ImageTrainingDataset::runValidationImages(void)
 {
 
