@@ -43,4 +43,7 @@ Next, all of the image annotation text files are copied from the dataset's main 
 
 Next, the Input Data Files are created. Each image will have its own input data text file. The stem of each input data text file will be the same as the stem of it's respective image with ".IDF" appended to it before the text file extension. Each image is converted to grayscale and then each pixel value is divided by 255. This allows each pixel value to be a value from zero to one. Each line of an input data file represents a different pixel from left to right and top to bottom of it's respective image. 
 
-Next, the Target Output Data Files are created. Each image will have its own target output data text file. The stem of each target output data text file will be the same as the stem of it's respective image with ".TODF" appended to it before the text file extension.
+Next, the Target Output Data Files are created. Each image will have its own target output data text file. The stem of each target output data text file will be the same as the stem of it's respective image with ".TODF" appended to it before the text file extension. Each line of a target output data file represents an image annotation from the List of Image Annotations text file plus one bias output. A zero means that the corresponding image annotation line does not apply and a one means that the corresponding image annotation line does apply. The following image shows the 15 different image annotations we discussed earlier for the example image dataset and one of the target output data files that has 16 lines (15 plus the one bias output that is later ignored):
+
+![Image 6](https://github.com/user-attachments/assets/5d0ceb4a-3a6e-4bd6-a727-01d8d3b43775)
+
