@@ -9,7 +9,7 @@
 // OpenCV Libraries
 #include <opencv2/opencv.hpp>
 
-void extractEMNISTImagesAndLabels(const std::string& filePathSourceImages, const std::string& filePathSourceLabels, const std::string& directoryImages, const std::string& directoryImageAnnotations, const unsigned& indexStarting)
+void extractEMNISTFiles(const std::string& filePathSourceImages, const std::string& filePathSourceLabels, const std::string& directoryImages, const std::string& directoryImageAnnotations, const unsigned& indexStarting)
 {
 	std::cout << "Update: Converting the EMNIST files.\n";
 
