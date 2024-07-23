@@ -30,8 +30,8 @@ void exampleEMNISTExtraction(void)
     std::string directoryImageAnnotations = directoryImages + "Image Annotations\\";
 
     // Extract 70,000 EMNIST MNIST Images And Labels
-    extractEMNISTImagesAndLabels(filePathTrainingImages, filePathTrainingLabels, directoryImages, directoryImageAnnotations, 0);
-    extractEMNISTImagesAndLabels(filePathTestImages, filePathTestLabels, directoryImages, directoryImageAnnotations, 60000);
+    extractEMNISTFiles(filePathTrainingImages, filePathTrainingLabels, directoryImages, directoryImageAnnotations, 0);
+    extractEMNISTFiles(filePathTestImages, filePathTestLabels, directoryImages, directoryImageAnnotations, 60000);
 }
 
 void exampleImageTrainingDataset(void)
