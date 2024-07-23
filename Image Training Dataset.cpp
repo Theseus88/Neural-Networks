@@ -25,7 +25,7 @@ void exampleEMNISTExtraction(void)
     std::string filePathTrainingImages = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\train-images.idx3-ubyte"; // 60,000 images
     std::string filePathTrainingLabels = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\train-labels.idx1-ubyte"; // 60,000 image labels
     std::string filePathTestImages = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\t10k-images.idx3-ubyte"; // 10,000 images
-    std::string filePathTestLabels = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\t10k-labels.idx1-ubyte"; // 10,000 labels
+    std::string filePathTestLabels = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\t10k-labels.idx1-ubyte"; // 10,000 image labels
     std::string directoryImages = "C:\\Users\\Theseus88\\OneDrive\\Desktop\\EMNIST MNIST Database\\Images\\";
     std::string directoryImageAnnotations = directoryImages + "Image Annotations\\";
 
